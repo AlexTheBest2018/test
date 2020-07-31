@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | URL to your CodeIgniter root. Typically this will be your base URL,
 | WITH a trailing slash:
 |
-|	http://example.com/
+|	http://test.com/
 |
 | If this is not set then CodeIgniter will try guess the protocol, domain
 | and path to your installation. However, you should always configure this
@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] =  'https://'. DOMAIN;
+$config['base_url'] =  'http://'. DOMAIN;
 
 /*
 |--------------------------------------------------------------------------
@@ -308,7 +308,7 @@ $config['cache_query_string'] = FALSE;
 | http://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'fOJwxWifdifUduSLbyMh9y0ptFqHsm8P';
 
 /*
 |--------------------------------------------------------------------------
