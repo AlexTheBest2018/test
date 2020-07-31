@@ -36,5 +36,9 @@ class CI_Core {
     const RESPONSE_GENERIC_NO_DATA = 'no_data'; // нет данных по данному запросу . Пусто или че ? тоже самое что и сверху
     const RESPONSE_GENERIC_SHOULD_WAIT = 'should_wait'; // Действие с задержкой - повторный запрос отправить позже
 
+    const DONT_HAVE_ENOUGH_LIKES = 'You donn\'t have enough likes in your likes-balance';
+    const RESPONSE_GENERIC_LOGIN_ERROR = 'Incorrect login or password';
+    const RESPONSE_GENERIC_NOT_ENOUGH_MONEY = 'Not enough money';
+
     const WEEK_DAYS = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa'];
 }

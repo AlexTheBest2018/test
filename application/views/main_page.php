@@ -6,10 +6,10 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Test Task</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/app.css?v=<?= filemtime(FCPATH . '/css/app.css') ?>">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
 <div id="app">
@@ -21,7 +21,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <li class="nav-item">
-            <?  if (User_model::is_logged()) {?>
+            <? if (User_model::is_logged()) {?>
               <a href="/main_page/logout" class="btn btn-primary my-2 my-sm-0"
                  data-target="#loginModal">Log out, <?= $user->personaname?>
               </a>
@@ -36,6 +36,8 @@
               <button type="button" class="btn btn-success my-2 my-sm-0" type="submit" data-toggle="modal"
                       data-target="#addModal">Add balance
               </button>
+              <a href="" class="text-white mx-2"><span class="bold">Balance:</span> {{ balance }} $</a>
+              <a href="" class="text-white"><span class="bold">Like Balance:</span> {{ likeBalance }}</a>
             <? }?>
         </li>
       </div>
@@ -132,6 +134,12 @@
               </div>
             </div>
           </form>
+          <div class="alert alert-danger alert-dismissible fade show" v-if="loginError" role="alert">
+            <button type="button" class="close" data-dismiss="alert" @click.prevemt="loginError=''" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{loginError}}
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -176,14 +184,28 @@
                   </div>
                   <span>{{likes}}</span>
                 </div>
+                <div class="alert alert-danger alert-dismissible fade show" v-if="isError" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{error}}
+                </div>
               </div>
-              <p class="card-text" v-for="comment in post.coments"> {{comment.user.personaname + ' - '}}<small class="text-muted">{{comment.text}}</small></p>
+              <template>
+                <comment v-for="comment in post.coments" :key="comment.id" @update="commentText = $event;" @addcomment="addcomment(comment.id)" v-bind:comment="comment"></comment>
+              </template>
               <form class="form-inline">
                 <div class="form-group">
                   <input type="text" class="form-control" id="addComment" v-model="commentText">
                 </div>
-                <button type="submit" class="btn btn-primary">Add comment</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="addcomment">Add comment</button>
               </form>
+              <div class="alert alert-danger alert-dismissible fade show" v-if="isAuthError" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                {{authError}}
+              </div>
             </div>
           </div>
         </div>
@@ -242,14 +264,15 @@
     </div>
   </div>
 </div>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+
+<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+<script src="http://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+<script src="http://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script src="/js/app.js?v=<?= filemtime(FCPATH . '/js/app.js') ?>"></script>

@@ -22,6 +22,8 @@ class User_model extends CI_Emerald_Model {
     protected $avatarfull;
     /** @var int */
     protected $rights;
+    /** @var int */
+    protected $likes;
     /** @var float */
     protected $wallet_balance;
     /** @var float */
@@ -130,7 +132,23 @@ class User_model extends CI_Emerald_Model {
         $this->rights = $rights;
         return $this->save('rights', $rights);
     }
-
+    /**
+     * @return int
+     */
+    public function get_likes(): int
+    {
+        return $this->likes;
+    }
+    /**
+     * @param int $likes
+     *
+     * @return bool
+     */
+    public function set_likes(int $likes)
+    {
+        $this->likes = $likes;
+        return $this->save('likes', $likes);
+    }
     /**
      * @return float
      */
@@ -301,6 +319,8 @@ class User_model extends CI_Emerald_Model {
 
         $o->personaname = $data->get_personaname();
         $o->avatarfull = $data->get_avatarfull();
+        $o->balance = $data->get_wallet_total_refilled();
+        $o->likeBalance = $data->get_likes();
 
         $o->time_created = $data->get_time_created();
         $o->time_updated = $data->get_time_updated();
@@ -326,6 +346,8 @@ class User_model extends CI_Emerald_Model {
 
             $o->personaname = $data->get_personaname();
             $o->avatarfull = $data->get_avatarfull();
+            $o->balance = $data->get_wallet_total_refilled();
+            $o->likeBalance = $data->get_likes();
 
             $o->time_created = $data->get_time_created();
             $o->time_updated = $data->get_time_updated();
@@ -374,6 +396,19 @@ class User_model extends CI_Emerald_Model {
         }
     }
 
+    public static function get_auth_user($login, $password)
+    {
 
+        $user = App::get_ci()->s->from('user')
+                ->where('password', $password)
+                ->where('email', $login)
+                ->one();
+
+        if(!$user){
+            return false;
+        } else {
+            return (new self())->set($user);
+        }
+    }
 
 }
